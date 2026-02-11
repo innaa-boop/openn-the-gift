@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title> ★ open the gift﹗★</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- FONT LUCU -->
+<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#87c8f7,#00537f,#004183);
+    color:rgb(255, 254, 249);
+    overflow-x:hidden;
+}
+
+/* SECTION */
+section{
+    min-height:100vh;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    padding:25px;
+}
+section.active{display:flex}
+
+/* CARD */
+.card{
+    background:rgba(1, 75, 129, 0.228);
+    backdrop-filter:blur(12px);
+    border-radius:25px;
+    padding:30px;
+    max-width:420px;
+    box-shadow:0 0 30px rgba(0, 0, 0, 0.315);
+}
+
+/* FONT */
+h1,h2,.cake,button{
+    font-family:'Chewy',cursive;
+    letter-spacing:2px;
+}
+
+/* BUTTON */
+button{
+    margin-top:20px;
+    padding:12px 28px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(45deg,#3587ec,#7cb9ff);
+    color:white;
+    font-size:1.1em;
+    cursor:pointer;
+    transition:.3s;
+}
+button:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 15px #054e8b;
+}
+
+/* ANIMASI */
+.bounce{animation:bounce 2s infinite}
+@keyframes bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+/* EMOJI POP */
+.emoji-pop{
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(0);
+    font-size:60px;
+    z-index:9999;
+    animation:popEmoji 1.2s ease forwards;
+    pointer-events:none;
+}
+@keyframes popEmoji{
+    0%{opacity:0;transform:translate(-50%,-50%) scale(0)}
+    40%{opacity:1;transform:translate(-50%,-60%) scale(1.3)}
+    100%{opacity:0;transform:translate(-50%,-120%) scale(.8)}
+}
+
+/* GALLERY */
+.gallery img{
+    width:200px;height:200px;
+    border-radius:15px;
+    object-fit:cover;
+    margin:8px;
+    border:3px solid #0e65b2;
+}
+
+/* KUE */
+.cake{font-size:100px;cursor:pointer}
+.candle{font-size:45px;animation:flicker 1s infinite}
+@keyframes flicker{0%,100%{opacity:1}50%{opacity:.4}}
+
+canvas{
+    position:fixed;
+    top:0;left:0;
+    pointer-events:none;
+}
+
+/* MEMORY GAME */
+.game-card{
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
+    border-radius:25px;
+    padding:25px;
+    max-width:360px;
+    box-shadow:0 0 25px rgba(0,0,0,.3);
+}
+
+.game-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-top:15px;
+}
+
+.game-item{
+    background:#4fa3ff;
+    border-radius:15px;
+    height:60px;
+    font-size:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    color:transparent;
+    transition:.3s;
+}
+
+.game-item.open{
+    background:#fff;
+    color:#333;
+    transform:scale(1.1);
+}
+
+/*  BIG BIRTHDAY CAKE  */
+.big-cake{
+    font-size:180px;          /* BESAR */
+    cursor:pointer;
+    position:relative;
+    animation:cakeFloat 3s ease-in-out infinite;
+    filter:drop-shadow(0 0 25px rgba(255,255,255,.5));
+}
+
+.big-candles{
+    position:absolute;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:55px;
+    animation:flicker 1s infinite;
+}
+
+@keyframes cakeFloat{
+    0%,100%{transform:translateY(0) scale(1)}
+    50%{transform:translateY(-18px) scale(1.05)}
+}
+
+iframe{
+    margin-top:15px;
+    box-shadow:0 0 20px rgba(0,0,0,.3);
+}
+
+/* SPOTIFY EMBED */
+iframe{
+    margin-top:15px;
+    box-shadow:0 0 25px rgba(0,0,0,.35);
+}
+
+/* YOUTUBE */
+iframe{
+    margin-top:15px;
+    box-shadow:0 0 28px rgba(0,0,0,.35);
+}
+
+/* 🎁 KADO MENGAMBANG */
+.secret-gift{
+  font-size:100px;
+  cursor:pointer;
+  animation:floatGift 4s ease-in-out infinite;
+  filter:drop-shadow(0 0 20px rgba(150,200,255,.8));
+}
+
+@keyframes floatGift{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-18px)}
+}
+
+/* 🌟 OVERLAY HADIAH */
+.gift-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,10,30,.85);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  animation:fadeIn .6s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+/* ✨ CAHAYA BELAKANG */
+.gift-glow{
+  position:absolute;
+  width:320px;
+  height:320px;
+  background:radial-gradient(circle,
+    rgba(150,200,255,.9),
+    rgba(100,150,255,.4),
+    transparent 70%);
+  animation:pulseGlow 2.5s ease-in-out infinite;
+  filter:blur(8px);
+}
+
+@keyframes pulseGlow{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+}
+
+/* 🖼️ GAMBAR HADIAH */
+.gift-image{
+  width:260px;
+  border-radius:20px;
+  position:relative;
+  z-index:2;
+  animation:floatImage 3s ease-in-out infinite;
+  box-shadow:0 0 35px rgba(180,220,255,.9);
+}
+
+@keyframes floatImage{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+}
+
+/* TOMBOL TUTUP */
+.close-gift{
+  position:absolute;
+  bottom:20px;
+  background:#6faeff;
+  border:none;
+  padding:10px 22px;
+  border-radius:20px;
+  font-family:'Chewy',cursive;
+  font-size:18px;
+  cursor:pointer;
+}
+
+/* 💌 TEKS TYPEWRITER */
+.type-text{
+  margin-top:30px;
+  max-width:380px;
+  text-align:center;
+  font-family:'Chewy',cursive;
+  font-size:18px;
+  color:#eaf4ff;
+  text-shadow:0 0 10px rgba(150,200,255,.8);
+  min-height:100px;
+}
+
+/* KHUSUS gambar section 7 & 8 */
+#s7 .floating-img-wrapper,
+#s8 .floating-img-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* GAMBAR MELAYANG */
+.floating-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+
+  animation: floating 6s ease-in-out infinite;
+
+  box-shadow:
+    0 0 25px rgba(120,180,255,0.6),
+    0 0 60px rgba(120,180,255,0.4),
+    0 0 120px rgba(120,180,255,0.25);
+}
+
+/* ANIMASI MELAYANG */
+@keyframes floating {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Styling untuk gallery */
+#s17 .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+#s17 .gallery img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    opacity: 0;
+    transform: translateY(50px);
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+    transition: transform 0.3s ease;
+}
+
+/* Animasi muncul satu persatu */
+#s17 .gallery img:nth-child(1) {
+    animation: floatIn 0.8s ease-out 0.2s forwards, float 3s ease-in-out 1s infinite;
+}
+
+#s17 .gallery img:nth-child(2) {
+    animation: floatIn 0.8s ease-out 0.4s forwards, float 3s ease-in-out 1.2s infinite;
+}
+
+#s17 .gallery img:nth-child(3) {
+    animation: floatIn 0.8s ease-out 0.6s forwards, float 3s ease-in-out 1.4s infinite;
+}
+
+#s17 .gallery img:nth-child(4) {
+    animation: floatIn 0.8s ease-out 0.8s forwards, float 3s ease-in-out 1.6s infinite;
+}
+
+#s17 .gallery img:nth-child(5) {
+    animation: floatIn 0.8s ease-out 1s forwards, float 3s ease-in-out 1.8s infinite;
+}
+
+#s17 .gallery img:nth-child(6) {
+    animation: floatIn 0.8s ease-out 1.2s forwards, float 3s ease-in-out 2s infinite;
+}
+
+#s17 .gallery img:nth-child(7) {
+    animation: floatIn 0.8s ease-out 1.4s forwards, float 3s ease-in-out 2.2s infinite;
+}
+
+#s17 .gallery img:nth-child(8) {
+    animation: floatIn 0.8s ease-out 1.6s forwards, float 3s ease-in-out 2.4s infinite;
+}
+
+#s17 .gallery img:nth-child(9) {
+    animation: floatIn 0.8s ease-out 1.8s forwards, float 3s ease-in-out 2.6s infinite;
+}
+
+#s17 .gallery img:nth-child(10) {
+    animation: floatIn 0.8s ease-out 2s forwards, float 3s ease-in-out 2.8s infinite;
+}
+
+/* Keyframes untuk animasi muncul */
+@keyframes floatIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Keyframes untuk animasi melayang */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Efek glow saat hover */
+#s17 .gallery img:hover {
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8)) 
+            drop-shadow(0 0 50px rgba(100, 200, 255, 0.6));
+    transform: scale(1.1) translateY(-10px);
+}
+
+/* CSS untuk Confetti */
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #ff0000;
+    opacity: 0;
+    animation: confetti-fall 3s linear forwards;
+}
+
+/* Variasi warna confetti */
+.confetti:nth-child(2n) {
+    background-color: #00ff00;
+}
+
+.confetti:nth-child(3n) {
+    background-color: #0000ff;
+}
+
+.confetti:nth-child(4n) {
+    background-color: #ffff00;
+}
+
+.confetti:nth-child(5n) {
+    background-color: #ff00ff;
+}
+
+.confetti:nth-child(6n) {
+    background-color: #00ffff;
+}
+
+.confetti:nth-child(7n) {
+    background-color: #ff6600;
+}
+
+/* Animasi jatuh confetti */
+@keyframes confetti-fall {
+    0% {
+        opacity: 1;
+        transform: translateY(-100%) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
+
+/* Styling untuk gallery di s18, s19, s20 */
+#s18 .gallery,
+#s19 .gallery,
+#s20 .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+#s18 .gallery img,
+#s19 .gallery img,
+#s20 .gallery img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+    opacity: 0;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Animasi fade-out untuk s18 */
+#s18 .gallery img {
+    animation: fadeOut 2s ease-in-out forwards,
+               float 3s ease-in-out 2s infinite;
+}
+
+/* Animasi fade-out untuk s19 */
+#s19 .gallery img {
+    animation: fadeOut 2s ease-in-out forwards,
+               float 3s ease-in-out 2s infinite;
+}
+
+/* Animasi fade-out untuk s20 */
+#s20 .gallery img {
+    animation: fadeOut 2s ease-in-out forwards,
+               float 3s ease-in-out 2s infinite;
+}
+
+
+
+/* Keyframes untuk animasi fade-out */
+@keyframes fadeOut {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Keyframes untuk animasi melayang */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Efek glow saat hover untuk s18, s19, s20 */
+#s18 .gallery img:hover,
+#s19 .gallery img:hover,
+#s20 .gallery img:hover {
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8)) 
+            drop-shadow(0 0 50px rgba(27, 247, 255, 0.936))
+            drop-shadow(0 0 70px rgba(100, 200, 255, 0.5));
+    transform: scale(1.15) translateY(-15px);
+}
+
+/* Animasi untuk div bounce */
+#s18 .bounce,
+#s19 .bounce,
+#s20 .bounce {
+    animation: bounceText 1s ease-in-out infinite;
+}
+
+@keyframes bounceText {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Efek glow pada teks */
+#s18 .bounce,
+#s19 .bounce,
+#s20 .bounce  {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                 0 0 20px rgba(255, 255, 255, 0.6),
+                 0 0 30px rgba(100, 200, 255, 0.4);
+}
+
+</style>
+</head>
+
+<body>
+
+
+<canvas id="confetti"></canvas>
+
+<!-- 1 -->
+<section id="s1" class="active">
+<div class="card">
+<h1>𝑯𝒂𝒑𝒑𝒚 𝒃𝒊𝒓𝒕𝒉𝒅𝒂𝒚 .ᐟ </h1>
+<p> Get ready to open the surprise? ᰔ </p>
+<button onclick="next(2)"> play ꩜.ᐟ 🎁</button>
+</div>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+<h2> ♪⋆. Night Changes ♬⋆.˚ </h2>
+<p> eitss putar lagunya dulu dong kak ૮₍ ˃ ⤙ ˂ ₎ა </p>
+<iframe style="border-radius:12px"
+src="https://open.spotify.com/embed/track/5O2P9iiztwhomNh8xkR9lJ"
+width="300" height="80" frameBorder="0"
+allow="autoplay; clipboard-write; encrypted-media"></iframe>
+<button onclick="next(3)">klik ini╰┈➤ˎˊ˗ </button>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+<div class="card">
+<h1> from alienn ⋆˚꩜｡</h1>
+<div class="gallery">
+<img src="images/cat10.jpg">
+</div>
+<h2> (inna comel :p) </h2>
+
+<button onclick="next(4)">klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+<div class="card">
+<h1> ✮⋆alloww anggaa⋆✮ </h1>
+<h2> 𓆝 𓆟 𓆞 𓆝 𓆟 </h2>
+
+<h3>today it's your b'dayy (˶˃ ᵕ ˂˶)</h3>
+<p>i'm happy for youu </p>
+<div class="gallery">
+<img src="images/cat1.jpg">
+</div>
+<button onclick="next(5)">klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+<div class="card">
+<h1> ⋆༺𓆩☠︎︎𓆪༻⋆ </h1>
+<h2> i want to give you a small gift </h2></2>
+<p>     
+           semogaa sukaa yaa (˵˃ ᗜ ˂˵)
+</p>
+<button onclick="next(6)">klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+<div class="game-card">
+<h1>Let's play a little game ꩜ </h1>
+<p>Klik 2 kartu yang sama!</p>
+<p>Moves: <span id="moves">0</span></p>
+
+<div class="game-grid">
+  <div class="game-item" data-card="🐱">🐱</div>
+  <div class="game-item" data-card="🐱">🐱</div>
+
+  <div class="game-item" data-card="🎈">🎈</div>
+  <div class="game-item" data-card="🎉">🎉</div>
+  
+  <div class="game-item" data-card="🎂">🎂</div>
+  <div class="game-item" data-card="🎈">🎈</div>
+
+  <div class="game-item" data-card="😻">😻</div>
+  <div class="game-item" data-card="😻">😻</div>  
+
+  <div class="game-item" data-card="🎉">🎉</div>
+  <div class="game-item" data-card="🎂">🎂</div>
+
+  <div class="game-item" data-card="🎁">🎁</div>
+  <div class="game-item" data-card="🎁">🎁</div>
+  
+</div>
+</div>
+
+<button onclick="next(7)"> klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+
+<!-- 7 -->
+<section id="s7">
+  <div class="gallery floating-img-wrapper">
+    <img src="./images/a1.1.jpg" class="floating-img">
+  </div>
+
+  <h1 class="type" data-text="only getting older, baby"></h1>
+  <h2 class="type" data-text="and I've been thinking about it lately"></h2>
+  <h3 class="type" data-text="does it ever drive you crazy"></h3>
+
+<button onclick="next(8)">klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <div class="gallery floating-img-wrapper">
+    <img src="./images/a1.2.png" class="floating-img">
+  </div>
+
+<h3 class="type" data-text="just how fast the night changes?"></h3>
+
+<p> [maap pencurian foto secara ilegal, kamu sii nda mau ka mukasi foto mu] </p>
+<button onclick="next(9)">klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+
+<!-- 9 -->
+<section id="s9">
+<h2> ᯤ Hitung Mundur...</h2>
+<h1 id="countdown"></h1>
+<button onclick="next(10)">klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+
+<!-- 10 -->
+<section id="s10">
+<h2> this cake for u 🎂</h2>
+<p> make a wish...
+    sebelum tiup lilin ya kak ^^  
+</p>
+<div class="big-cake" onclick="blow()">
+  🎂
+  <div class="big-candles" id="candle">🕯️</div>
+</div>
+<p>klik kuenya buat tiup lilin!</p>
+<button onclick="next(11)">klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+<!-- 11 -->
+<section id="s11">
+<div class="card">
+<h1> happy birthday (｡˃ ᵕ ˂ ) </h1>
+<div class="gallery">
+<img src="images/hbd 1.jpg">
+</div>
+<p>
+hii anggaaa selamat 20th, WOW OHMYGATT kepala 2 mi 0o0 
+panjang umurki dan sehat selalu yaaa aamiinn aamiinn, semogaa lancar terus 
+rezekimu, dimudahkan segala  urusanya, dan satu persatu 
+whist-list mu tercapai AAMIINN...
+</p>
+<button onclick="next(12)">klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+<!-- 12 -->
+<section id="s12">
+<div class="card">
+<h1> . ܁₊ ⊹ . ܁ ⟡ ܁ . ⊹ ₊ ܁.</h1>
+<p> jangan lupa berterimakasih dan bangga sama
+ dirimu sendiri naa karena kamu sudah bertahan sejauh ini •ᴗ• 
+</p>
+<div class="gallery">
+<img src="images/cat3.jpg">
+</div>
+<button onclick="next(13)">klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+<!-- 13 -->
+<section id="s13">
+<div class="card">
+<h1> ⊹ 02:𝟏9 ⊹  </h1>
+<p>
+semoga semua hal baik menghampirimu, semua doa doa baik selalu mengiringimu, 
+dan semua impianmu perlahan menjadi nyata. Jangan lupa bahagia yaa hari ini 
+eh nda deng semoga hari harimu selalu dipenuhi kebahagiaan, dan terkhusus hari ini harus
+naik next level bahagia mu karena ini hari spesial mu hehehwhw ૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა
+</p>
+<button onclick="next(14)">klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+<!-- 14 -->
+<section id="s14">
+<div class="card">
+<h1> ⊹ ࣪ ﹏𓊝﹏𓂁﹏⊹ ࣪ ˖ </h1>
+<p>
+terkadang hidup terasa berat dan nda kutau seberat apa hidup right now, yang pastinya (but if you need a good listener, I'm ready to listen to everything), just call me 🧏🏼‍♀️ walaupun nda bisa ka bantu banyak kasi solusi 
+tapi setidaknya bisa k cerita sepuasnya sama saya, tanpa perlu pura-pura kuat, toh nda ada salahnya berbagi cerita ^^. semangatt terus yaa, tapi klu capee ki jangan lupa istirahat ya kak ^ᴗ^
+</p>
+<div class="gallery">
+<img src="images/cat8.jpg">
+</div>
+<button onclick="next(15)">klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+<!-- 15 -->
+<section id="s15">
+<div class="card">
+<h1> ⊹ reminder ⊹ </h1>
+
+<h3>don't forget [24434]nya kak!</h3>
+<h4>don't forget juga minum air putih heheh...(klu sahur) </h4>
+<p> bulan puasa sekarang semoga puasanya full 30day!</p>
+
+<h5> JANGAN MOKELLL YAA!! </h5>
+<h6> dosa marah ALLAH SWT ☝🏻☝🏻</h6>
+<div class="gallery">
+<img src="images/kucing1.jpg">
+</div>
+<p> cici cici cuit... </p>
+<button onclick="next(16)"> klik ini╰┈➤ˎˊ˗</button>
+</div>
+</section>
+
+
+<!-- 16 -->
+<section id="s16">
+<div class="card">
+<h1> TAP HERE! </h1>
+</div>
+<button onclick="next(17)"> our memories 📸</button>
+</section>
+
+<!-- 17 -->
+<section id="s17">
+<h2>📸 our memories </h2>
+<p> I really enjoy playing roblox games with you, 
+    tengkyuu yaww kakk (˶ᵔ ᵕ ᵔ˶) 
+</p>
+<div class="gallery">
+<img src="images/img110.png">
+<img src="images/img105.png">
+<img src="images/img101.png">
+<img src="images/img103.png">
+<img src="images/img102.png">
+<img src="images/img107.png">
+<img src="images/img106.png">
+<img src="images/img109.png">
+<img src="images/img108.png">
+<img src="images/img111.png">
+</div>
+<button onclick="next(18)"> ada kado spesial nich 🎁</button>
+</section>
+
+<!-- 18 -->
+<section id="s18">
+  <div class="confetti-container" id="confetti-s18"></div>
+
+<h2>🎁 Kado Spesial</h2>
+<div class="bounce" style="font-size:90px"> BOOMM </div>
+<div class="gallery">
+<img src="images/cat4.jpg">
+</div>
+<h3>virtual hug😸</h3>
+<button onclick="next(19)"> klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+
+<!-- 19 -->
+<section id="s19">
+  <div class="confetti-container" id="confetti-s19"></div>
+
+<h2>🎁 Kado Spesial</h2>
+<div class="bounce" style="font-size:90px"> AWWW </div>
+<div class="gallery">
+<img src="images/cat12.jpg">
+</div>
+<h3>tabe bunga untuk ta kak 🌹</h3>
+<button onclick="next(20)"> klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+<!-- 20 -->
+<section id="s20">
+  <div class="confetti-container" id="confetti-s20"></div>
+
+<h2>🎁 Kado Spesial</h2>
+<div class="bounce" style="font-size:90px"> 🤩 </div>
+<div class="gallery">
+<img src="images/cat15.jpg">
+</div>
+<h3> 🙀 you are so amazingg 🙀</h3>
+<button onclick="next(21)"> klik ini╰┈➤ˎˊ˗</button>
+</section>
+
+
+<!-- 21 -->
+<section id="s21">
+<div class="card">
+<h2>💌</h2>
+<p> ihyk i'm soo proud of youu whatever your choice is and whatever you do as long as it is right,
+    tengkyuu for everything, tetap jadi diri kamu sendiri yaa !!
+</p>
+<div class="gallery">
+<img src="images/cat5.jpg">
+<button onclick="next(22)"> last ╰┈➤ˎˊ˗</button>
+</div>
+</section>
+
+<!-- 22 -->
+<section id="s22">
+<div class="card">
+<h1>🎬 Last Surprise 0o0 </h1>
+<h3> video spesial buat kamu anjayy </h3>
+
+<iframe
+  width="320"
+  height="180"
+  style="border-radius:15px"
+  src="https://www.youtube.com/embed/_35eeFQEgPE"
+  frameborder="0"
+  allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
+<p> hehehe nda deng lama mi ini video, tapi baru mau kukasi liat :P </p>
+
+<button onclick="next(23)">╰┈➤ˎˊ˗</button>
+</div>
+</section>
+
+<!-- 23 -->
+<section id="s23">
+<div class="card">
+<h1> 𝄞⨾💿✮˚.⋆ </h1>
+
+<div class="gallery">
+<img src="images/cat11.jpg">
+
+<h2> bikin ka ini playlist khusus buat kamu eyakk </h2>
+<p>klik tombol di bawah yaaww</p>
+
+<iframe
+      style="border-radius:14px"
+      src="https://open.spotify.com/embed/playlist/3amghFC1ftihtBiFgJNRRn"
+      width="100%"
+      height="352"
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+
+<button onclick="next(24)">╰┈➤ˎˊ˗</button>
+</div>
+</section>
+
+<!-- 24 -->
+<section id="s24">
+<h1> ﹗secret gift﹗</h1>
+<div class="secret-gift" onclick="openGift()">💌</div>
+<p>Klik kadonya pelan-pelan yaa ✨</p>
+
+<p> rating duluu kak [maap jelle masih pemula] 😔🙏🏻 </p>
+<button onclick="next(25)">╰┈➤ˎˊ˗</button>
+</div>
+</section>
+
+
+<!-- 25 -->
+<section id="s25">
+    
+<h1> okee dech sekian terimakaciii </h1>
+
+<div class="gallery">
+<img src="images/alien.jpg">
+
+<h3> alien mau back to mars... </h3>
+<p> zip zipp zipp 👽 </p>
+<button onclick="next(26)">papayyy 🛸</button>
+</div>
+</section>
+
+<!-- 26 -->
+<section id="s26">
+    
+<div class="gallery">
+<img src="images/cat01.jpg">
+
+<h1> zzZZZzzzz...  </h1>
+
+</div>
+</section>
+
+
+<script>
+/* EMOJI POP */
+const emojis=["🎉","🎂","🎁","🎈","🐱","😸","✨","💙"];
+function popEmoji(){
+    const e=document.createElement("div");
+    e.className="emoji-pop";
+    e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),1200);
+}
+
+/* NAVIGASI */
+function next(n){
+    popEmoji();
+    document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+    document.getElementById("s"+n).classList.add("active");
+}
+
+/* COUNTDOWN */
+const target=new Date("2026-02-19T00:00:00").getTime();
+setInterval(()=>{
+    const d=target-new Date().getTime();
+    document.getElementById("countdown").innerHTML =
+    d>0 ? Math.floor(d/(1000*60*60*24))+" Hari Lagi 🎉" : "🎉 HARI INI 🎉";
+},1000);
+
+/* KUE */
+function blow(){
+    document.getElementById("candle").innerHTML="💨";
+    confettiStart();
+
+    // efek getar kecil
+    document.querySelector(".big-cake").style.animation="none";
+    document.querySelector(".big-cake").style.transform="scale(1.2)";
+
+    setTimeout(()=>{
+        next(9); // lanjut setelah tiup
+    },1500);
+}
+
+
+/* CONFETTI */
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;canvas.height=innerHeight;
+let conf=[];
+function confettiStart(){
+    for(let i=0;i<200;i++){
+        conf.push({
+            x:Math.random()*canvas.width,
+            y:Math.random()*canvas.height,
+            r:Math.random()*6+4,
+            c:`hsl(${Math.random()*360},100%,70%)`,
+            s:Math.random()*3+1
+        });
+    }
+    setInterval(()=>{
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        conf.forEach(p=>{
+            ctx.beginPath();
+            ctx.fillStyle=p.c;
+            ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fill();
+            p.y+=p.s;
+        });
+    },20);
+}
+
+/* ===== MEMORY GAME LOGIC ===== */
+let first=null, lock=false, moves=0;
+const cards=document.querySelectorAll(".game-item");
+
+cards.forEach(card=>{
+  card.addEventListener("click",()=>{
+    if(lock || card.classList.contains("open")) return;
+
+    card.classList.add("open");
+
+    if(!first){
+      first=card;
+    }else{
+      moves++;
+      document.getElementById("moves").innerText=moves;
+
+      if(first.dataset.card===card.dataset.card){
+        first=null;
+
+        if(document.querySelectorAll(".game-item.open").length===cards.length){
+          setTimeout(()=>{
+            next(5); // lanjut ke s5
+          },800);
+        }
+      }else{
+        lock=true;
+        setTimeout(()=>{
+          first.classList.remove("open");
+          card.classList.remove("open");
+          first=null;
+          lock=false;
+        },700);
+      }
+    }
+  });
+});
+
+/* sikrit */
+function openGift(){
+  const overlay = document.createElement("div");
+  overlay.className = "gift-overlay";
+  overlay.innerHTML = `
+    <div class="gift-glow"></div>
+
+    <div style="z-index:2;display:flex;flex-direction:column;align-items:center;gap:15px">
+      <img src="images/img19.png" class="gift-image">
+      <div id="giftText" class="type-text"></div>
+    </div>
+
+    <button class="close-gift" onclick="this.parentElement.remove()">Tutup 💙</button>
+
+  `;
+  document.body.appendChild(overlay);
+
+  typeWriter(
+    "Ini hadiah kecil dariku ⭑.ᐟ \ntadaa ini gambar ku yang mau kukasi liat (˶˃𐃷˂˶) ",
+    0
+  );
+}
+
+/* ✍️ EFEK TEKS SATU-SATU */
+function typeWriter(text, i){
+  if(i < text.length){
+    document.getElementById("giftText").innerHTML +=
+      text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+    setTimeout(() => typeWriter(text, i+1), 20);
+  }
+}
+
+
+function typeElements(section){
+  const elements = section.querySelectorAll(".type");
+  let delay = 0;
+
+  elements.forEach(el=>{
+    const text = el.dataset.text;
+    el.innerHTML = "";
+
+    [...text].forEach((char,i)=>{
+      setTimeout(()=>{
+        el.innerHTML += char;
+      }, delay + i*45);
+    });
+
+    delay += text.length * 45 + 400;
+  });
+}
+
+/* OVERRIDE NEXT */
+function next(n){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  const target = document.getElementById("s"+n);
+  target.classList.add("active");
+
+  if(target.querySelector(".type")){
+    typeElements(target);
+  }
+}
+
+// JavaScript untuk membuat confetti
+function createConfetti(containerId, count = 50) {
+    const container = document.getElementById(containerId);
+    
+    for (let i = 0; i < count; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        
+        // Random posisi horizontal
+        confetti.style.left = Math.random() * 100 + '%';
+        
+        // Random delay
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        
+        // Random durasi
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        
+        // Random ukuran
+        const size = Math.random() * 10 + 5;
+        confetti.style.width = size + 'px';
+        confetti.style.height = size + 'px';
+        
+        container.appendChild(confetti);
+    }
+}
+
+// Jalankan confetti saat halaman dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    createConfetti('confetti-s18', 60);
+    createConfetti('confetti-s19', 60);
+    createConfetti('confetti-s20', 60);
+    
+});
+
+// Atau jalankan saat section terlihat (dengan Intersection Observer)
+const observerOptions = {
+    threshold: 0.5
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            const confettiId = 'confetti-' + sectionId;
+            
+            // Hapus confetti lama jika ada
+            const container = document.getElementById(confettiId);
+            if (container) {
+                container.innerHTML = '';
+                createConfetti(confettiId, 60);
+            }
+        }
+    });
+}, observerOptions);
+
+// Observe semua section
+document.querySelectorAll('#s18, #s19, #s20').forEach(section => {
+    observer.observe(section);
+});
+
+
+
+</script>
+
+</body>
+</html>
